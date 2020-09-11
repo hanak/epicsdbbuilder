@@ -5,6 +5,7 @@ from __future__ import print_function
 import string
 
 from . import recordnames
+from .parameter import Parameter
 from .recordset import recordset
 
 
@@ -233,7 +234,10 @@ class Record(object):
 # imported record is to link to it.
 class ImportRecord:
     def __init__(self, name):
-        self.name = name
+        if isinstance(name, Parameter):
+            self.name = str(name)
+        else:
+            self.name = name
 
     def __str__(self):
         return self.name

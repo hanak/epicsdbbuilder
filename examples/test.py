@@ -14,6 +14,7 @@ SetRecordNames(dls_names)
 
 P = Parameter('P', 'A parameter')
 Q = Parameter('Q', 'A number')
+N = Parameter('N', 'A PV name')
 
 r = ImportRecord('SR-DI-DCCT-01:SIGNAL')
 
@@ -25,6 +26,8 @@ records.bi('TRIG',
 
 s = ImportRecord(RecordName('TRIG'))
 
+n = ImportRecord(N)
+
 PushPrefix('ABC')
 
 records.ai('TEST')
@@ -35,6 +38,7 @@ SetRecordNames(tmpl_names)
 t = records.ai('TEST',
     INP = '@%s' % P, VAL = Q, SCAN = '1 second')
 records.bi('BOO', INP = s)
+records.bi('BOO:N', INP = n)
 
 if platform.system() == 'Windows':
     WriteRecords(os.path.join(os.path.dirname(__file__), 'test_output.db'))
